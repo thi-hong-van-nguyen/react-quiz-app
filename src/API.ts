@@ -1,4 +1,5 @@
 import { shuffleArray } from "./utils";
+import axios from "axios";
 
 export type Question = {
 	category: string;
@@ -11,6 +12,11 @@ export type Question = {
 
 export type QuestionState = Question & { answers: string[] };
 
+type GetResponse = {
+	results: Question[];
+	response_code: number;
+};
+
 export enum Difficulty {
 	EASY = "easy",
 	MEDIUM = "medium",
@@ -22,7 +28,8 @@ export const fetchQuizQuesions = async (
 	difficulty: Difficulty
 ) => {
 	const endpoint = `https://opentdb.com/api.php?amount=${amount}&difficulty=${difficulty}&type=multiple`;
-	const data = await (await fetch(endpoint)).json();
+	const { data } = await axios.get<GetResponse>(endpoint);
+
 	return data.results.map((question: Question) => ({
 		...question,
 		answers: shuffleArray([
