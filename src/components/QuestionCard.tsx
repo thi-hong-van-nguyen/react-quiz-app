@@ -35,10 +35,7 @@ const QuestionCard: React.FC<Props> = ({
 					<div key={ans}>
 						<button
 							className={`answer ${
-								userAnswer &&
-								// userAnswer?.answer ===
-								// 	userAnswer?.correctAnswer &&
-								ans === userAnswer?.correctAnswer
+								userAnswer && ans === userAnswer?.correctAnswer
 									? " correct"
 									: ""
 							} ${

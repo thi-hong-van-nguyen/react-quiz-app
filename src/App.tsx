@@ -33,9 +33,6 @@ function App() {
 	const [gameOver, setGameOver] = useState(true);
 	const [showResult, setShowResult] = useState(false);
 
-	// console.log("userAnswers", userAnswers);
-	console.log("quiztyupe", quizType);
-
 	const fetchQuestions = async () => {
 		setLoading(true);
 		setGameOver(false);
@@ -61,7 +58,6 @@ function App() {
 		};
 		setUserAnswers((prev) => [...prev, answerObject]);
 		if (questionNumber === TOTAL_QUESTIONS - 1) {
-			// setGameOver(true);
 			setShowResult(true);
 		}
 	};

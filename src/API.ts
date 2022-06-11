@@ -28,12 +28,6 @@ export const fetchQuizQuesions = async (amount: number, quizType: QuizType) => {
 	const endpoint = `https://opentdb.com/api.php?amount=${amount}&category=${quizType.category}&difficulty=${quizType.difficulty}&type=multiple`;
 	const { data } = await axios.get<GetResponse>(endpoint);
 
-	console.log("data", data);
-	console.log(
-		"api",
-		`https://opentdb.com/api.php?amount=${amount}&category=${quizType.category}&difficulty=${quizType.difficulty}&type=multiple`
-	);
-
 	return data.results.map((question: Question) => ({
 		...question,
 		answers: shuffleArray([
