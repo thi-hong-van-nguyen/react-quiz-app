@@ -18,28 +18,48 @@ const QuestionCard: React.FC<Props> = ({
 	userAnswer,
 	questionNumber,
 	totalQuestions,
-}) => (
-	<div>
-		<div className="question-number">
-			Question: {questionNumber}/ {totalQuestions}
-		</div>
+}) => {
+	return (
+		<div className="question-card">
+			<div className="question-number">
+				Question: {questionNumber}/ {totalQuestions}
+			</div>
 
-		<div dangerouslySetInnerHTML={{ __html: question }} />
+			<div
+				dangerouslySetInnerHTML={{ __html: question }}
+				className="fw-bold mb-4"
+			/>
 
-		<div>
-			{answers?.map((ans) => (
-				<div key={ans}>
-					<button
-						disabled={!!userAnswer}
-						value={ans}
-						onClick={callback}
-					>
-						<span dangerouslySetInnerHTML={{ __html: ans }} />
-					</button>
-				</div>
-			))}
+			<div>
+				{answers?.map((ans) => (
+					<div key={ans}>
+						<button
+							className={`answer ${
+								userAnswer &&
+								// userAnswer?.answer ===
+								// 	userAnswer?.correctAnswer &&
+								ans === userAnswer?.correctAnswer
+									? " correct"
+									: ""
+							} ${
+								userAnswer &&
+								userAnswer?.answer !==
+									userAnswer?.correctAnswer &&
+								ans === userAnswer?.answer
+									? " wrong"
+									: ""
+							}`}
+							disabled={!!userAnswer}
+							value={ans}
+							onClick={callback}
+						>
+							<span dangerouslySetInnerHTML={{ __html: ans }} />
+						</button>
+					</div>
+				))}
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default QuestionCard;
